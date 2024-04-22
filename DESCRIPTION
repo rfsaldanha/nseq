@@ -1,4 +1,4 @@
-Package: runner
+Package: nseq
 Title: Statistics of Events in Sequences
 Version: 0.0.1
 Authors@R: 
@@ -17,5 +17,5 @@ Suggests:
     dplyr
 Config/testthat/edition: 3
 Config/Needs/website: rmarkdown
-URL: https://rfsaldanha.github.io/runner/
-BugReports: https://github.com/rfsaldanha/runner/issues
+URL: https://rfsaldanha.github.io/nseq/
+BugReports: https://github.com/rfsaldanha/nseq/issues

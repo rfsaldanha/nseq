@@ -9,12 +9,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `runner` package helps to count and compute statistics of events that occur in sequences that meet some conditions.
+The `nseq` package helps to count and compute statistics of events that occur in sequences that meet some conditions.
 
 As an example, let's use the `airquality` dataset. It contains daily air quality measurements in New York, from May to September 1973.
 
 ```{r}
-library(runner)
+library(nseq)
 data("airquality")
 
 head(airquality)
@@ -51,7 +51,7 @@ ggplot(june_data, aes(x = Day, y = Temp)) +
 
 There are two sequences of days with temperatures above 83F. One with two days, and one with 5 days. This last sequence meets the condition of "three days or more".
 
-Now, let's use the `runner` package to compute this for us.
+Now, let's use the `nseq` package to compute this for us.
 
 ```{r}
 trle_cond(june_data$Temp, a_op = "gte", a = 3, b_op = "gte", b = 83)
@@ -73,7 +73,7 @@ trle_cond(june_data$Temp, a_op = "gte", a = 2, b_op = "lte", b = 75)
 
 ## Grouping
 
-You can use the `runner` functions inside `?dplyr::summarise` to compute counts for groups.
+You can use the `nseq` functions inside `?dplyr::summarise` to compute counts for groups.
 
 > For each month, how many sequences of three days or more presented temperatures above the month's average.
 

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(runner)
+library(nseq)
 
-test_check("runner")
+test_check("nseq")
