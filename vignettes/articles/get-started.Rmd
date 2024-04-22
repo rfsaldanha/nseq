@@ -1,5 +1,5 @@
 ---
-title: "get-started"
+title: "Get started"
 ---
 
 ```{r, include = FALSE}
@@ -9,6 +9,99 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+The `runner` package helps to count and compute statistics of events that occur in sequences that meet some conditions.
+
+As an example, let's use the `airquality` dataset. It contains daily air quality measurements in New York, from May to September 1973.
+
+```{r}
 library(runner)
+data("airquality")
+
+head(airquality)
+```
+
+## Examples
+
+First, let's consider the temperature measurements taken in June.
+
+```{r}
+june_data <- subset(airquality, Month == 6)
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(june_data, aes(x = Day, y = Temp)) +
+  geom_line() +
+  geom_point() +
+  theme_bw()
+```
+
+> How many times we had **three days or more** in a row, with temperatures **above** 83F?
+
+To answer this question, first look at the plot.
+
+```{r}
+ggplot(june_data, aes(x = Day, y = Temp)) +
+  geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 83, color = "red") +
+  theme_bw()
+```
+
+There are two sequences of days with temperatures above 83F. One with two days, and one with 5 days. This last sequence meets the condition of "three days or more".
+
+Now, let's use the `runner` package to compute this for us.
+
+```{r}
+trle_cond(june_data$Temp, a_op = "gte", a = 3, b_op = "gte", b = 83)
+```
+
+> How many times we had **two days or more** with temperatures **below** 75F?
+
+```{r}
+ggplot(june_data, aes(x = Day, y = Temp)) +
+  geom_line() +
+  geom_point() +
+  geom_hline(yintercept = 75, color = "red") +
+  theme_bw()
+```
+
+```{r}
+trle_cond(june_data$Temp, a_op = "gte", a = 2, b_op = "lte", b = 75)
+```
+
+## Grouping
+
+You can use the `runner` functions inside `?dplyr::summarise` to compute counts for groups.
+
+> For each month, how many sequences of three days or more presented temperatures above the month's average.
+
+```{r, message=FALSE}
+library(dplyr)
+
+airquality |>
+  summarise(
+    avg = mean(Temp, na.rm = TRUE),
+    count_3 = trle_cond(Temp, a_op = "gte", a = 3, b_op = "gte", b = avg), 
+    .by = Month
+  )
+  
+```
+
+```{r}
+month_avg <- airquality |>
+  summarise(
+    avg = mean(Temp, na.rm = TRUE),
+    .by = Month
+  )
+
+airquality |>
+  left_join(month_avg, by = "Month") |>
+  mutate(date = as.Date(paste0(1973,"-",Month,"-",Day))) |> 
+  ggplot(aes(x = date)) +
+    geom_line(aes(y = Temp)) +
+    geom_step(aes(y = avg), color = "red") +
+    geom_point(aes(y = Temp)) +
+    theme_bw()
 ```
