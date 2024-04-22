@@ -86,8 +86,8 @@
 
     
     
-<p>The <code>nseq</code> package helps to count and compute statistics
-of events that occur in sequences that meet some conditions.</p>
+<p>The <code>nseq</code> package helps to count the number of sequences
+of values in a vector that meets conditions of length and magnitude.</p>
 <p>As an example, let’s use the <code>airquality</code> dataset. It
 contains daily air quality measurements in New York, from May to
 September 1973.</p>
@@ -138,8 +138,8 @@ us.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/trle_cond.html">trle_cond</a></span><span class="op">(</span><span class="va">june_data</span><span class="op">$</span><span class="va">Temp</span>, a_op <span class="op">=</span> <span class="st">"gte"</span>, a <span class="op">=</span> <span class="fl">3</span>, b_op <span class="op">=</span> <span class="st">"gte"</span>, b <span class="op">=</span> <span class="fl">83</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 <blockquote>
-<p>How many times we had <strong>two days or more</strong> with
-temperatures <strong>below</strong> 75F?</p>
+<p>How many times we had <strong>two days or more</strong> in sequence
+with temperatures <strong>below</strong> 75F?</p>
 </blockquote>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">june_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Day</span>, y <span class="op">=</span> <span class="va">Temp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>

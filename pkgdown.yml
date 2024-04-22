@@ -3,7 +3,7 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   get-started: get-started.html
-last_built: 2024-04-22T12:19Z
+last_built: 2024-04-22T12:39Z
 urls:
   reference: https://rfsaldanha.github.io/nseq/reference
   article: https://rfsaldanha.github.io/nseq/articles
