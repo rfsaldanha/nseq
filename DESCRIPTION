@@ -12,7 +12,9 @@ RoxygenNote: 7.3.1
 Imports: 
     checkmate
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    ggplot2,
+    dplyr
 Config/testthat/edition: 3
 Config/Needs/website: rmarkdown
 URL: https://rfsaldanha.github.io/runner/
