@@ -23,7 +23,7 @@ trle_cond <- function(.x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE){
   checkmate::assert_choice(x = a_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_choice(x = b_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_count(x = a)
-  checkmate::assert_count(x = b)
+  checkmate::assert_numeric(x = b)
 
   # Vector to tibble
   res <- tibble::tibble(y = .x)
