@@ -2,3 +2,4 @@
 
 export(trle)
 export(trle_cond)
+export(trle_cond_stat)

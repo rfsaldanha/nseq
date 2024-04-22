@@ -1,20 +1,20 @@
-#' Run Length Encoding with Conditions
+#' Count the number of events in a sequence
 #'
-#' This function will count the length of periods that meets a criterion.
+#' This function will count the occurrence of sequential events that meets some conditions.
 #'
-#' Example: In a vector, how many periods have at least 3 consecutive observations (\code{a_op = "gte", a = 3}) with values equal or greater than 5 (\code{b_op = "gte", b = 5})?
+#' Example: In a vector, how many sequences have at least 3 consecutive observations (\code{a_op = "gte", a = 3}) with values equal or greater than 5 (\code{b_op = "gte", b = 5})?
 #'
 #' @param .x vector of values.
 #' @param a_op,b_op character. Operator, \code{gte} = greater than or equal, \code{lte} = less than or equal, \code{gt} = greater than, \code{lt} = less than, \code{e} = equal.
 #' @param a integer. Length of period threshold.
-#' @param b integer. Value threshold applied to \code{y}.
-#' @param isolated logical. Consider only isolated events, ie. surrounded by zeros. On this case, \code{a} and \code{a_op} are not considered.
+#' @param b integer. Value threshold.
+#' @param isolated logical. Consider only isolated events, i.e. surrounded by zeros. On this case, \code{a} and \code{a_op} are not considered.
 #'
-#' @return a tibble.
+#' @return a numeric value.
 #' @export
 #'
 #' @examples
-#' # How many periods have at least 3 consecutive observations with value equal or greater than 5
+#' # How many sequences have at least 3 consecutive observations with value equal or greater than 5?
 #' trle_cond(.x = c(8,15,20,0,0,0,0,5,9,12), a_op = "gte", a = 3, b_op = "gte", b = 5)
 #'
 trle_cond <- function(.x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE){
