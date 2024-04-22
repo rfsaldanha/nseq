@@ -4,10 +4,10 @@
 \alias{trle}
 \title{Run Length Encoding and return result as a data frame}
 \usage{
-trle(.x)
+trle(x)
 }
 \arguments{
-\item{.x}{a vector.}
+\item{x}{a vector.}
 }
 \value{
 a \code{data.frame} object.
