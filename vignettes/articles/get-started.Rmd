@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `nseq` package helps to count and compute statistics of events that occur in sequences that meet some conditions.
+The `nseq` package helps to count the number of sequences of values in a vector that meets conditions of length and magnitude.
 
 As an example, let's use the `airquality` dataset. It contains daily air quality measurements in New York, from May to September 1973.
 
@@ -57,7 +57,7 @@ Now, let's use the `nseq` package to compute this for us.
 trle_cond(june_data$Temp, a_op = "gte", a = 3, b_op = "gte", b = 83)
 ```
 
-> How many times we had **two days or more** with temperatures **below** 75F?
+> How many times we had **two days or more** in sequence with temperatures **below** 75F?
 
 ```{r}
 ggplot(june_data, aes(x = Day, y = Temp)) +
