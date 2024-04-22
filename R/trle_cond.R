@@ -26,7 +26,7 @@ trle_cond <- function(.x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE){
   checkmate::assert_numeric(x = b)
 
   # Vector to tibble
-  res <- tibble::tibble(y = .x)
+  res <- data.frame(y = .x)
 
   # Create a logical variable, operating y and b
   if(b_op == "gte"){
@@ -43,8 +43,10 @@ trle_cond <- function(.x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE){
 
   # For isolated true, consider if previous and ahead values are equal to zero
   if(isolated == TRUE){
-    res$lag <- dplyr::lag(res$y, default = 0)
-    res$lead <- dplyr::lead(res$y, default = 0)
+    #res$lag <- dplyr::lag(res$y, default = 0)
+    res$lag <- shift(res$y, n = 1, default = 0)
+    #res$lead <- dplyr::lead(res$y, default = 0)
+    res$lead <- shift(res$y, n = -1, default = 0)
     res$value_ref_2 <- ifelse(res$lag == 0 & res$lead == 0, TRUE, FALSE)
     res$value_ref <- as.logical(res$value_ref * res$value_ref_2)
   }

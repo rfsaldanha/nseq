@@ -20,9 +20,9 @@ trle <- function(.x){
   res <- rle(.x)
 
   # Tibble result
-  tibble::tibble(
+  data.frame(
     value = res$values,
-    length = res$lengths,
+    length = res$lengths
   )
-
 }
+

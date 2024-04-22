@@ -24,7 +24,7 @@ trle_cond_stat <- function(.x, b, b_op, stat){
   checkmate::assert_choice(x = stat, choices = c("max", "min", "mean", "median", "sd", "var"))
 
   # Vector to tibble
-  res <- tibble::tibble(y = .x)
+  res <- data.frame(y = .x)
 
   # Create a logical variable, operating y and b
   if(b_op == "gte"){
