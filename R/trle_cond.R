@@ -1,48 +1,69 @@
-trle_cond <- function(.data, y, a_op, a, b_op, b, isolated){
+#' Run Length Encoding with Conditions
+#'
+#' This function will count the length of periods that meets a criterion.
+#'
+#' Example: In a vector, how many periods have at least 3 consecutive observations (\code{a_op = "gte", a = 3}) with values equal or greater than 5 (\code{b_op = "gte", b = 5})?
+#'
+#' @param .x vector of values.
+#' @param a_op,b_op character. Operator, \code{gte} = greater than or equal, \code{lte} = less than or equal, \code{gt} = greater than, \code{lt} = less than, \code{e} = equal.
+#' @param a integer. Length of period threshold.
+#' @param b integer. Value threshold applied to \code{y}.
+#' @param isolated logical. Consider only isolated events, ie. surrounded by zeros. On this case, \code{a} and \code{a_op} are not considered.
+#'
+#' @return a tibble.
+#' @export
+#'
+#' @examples
+#' # How many periods have at least 3 consecutive observations with value equal or greater than 5
+#' trle_cond(.x = c(8,15,20,0,0,0,0,5,9,12), a_op = "gte", a = 3, b_op = "gte", b = 5)
+#'
+trle_cond <- function(.x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE){
   # Check assertions
-  checkmate::assert_class(x = .data, classes = "tbl")
-  checkmate::assert_choice(x = y, choices = names(.data))
+  checkmate::assert_vector(x = .x)
   checkmate::assert_choice(x = a_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_choice(x = b_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_count(x = a)
   checkmate::assert_count(x = b)
 
+  # Vector to tibble
+  res <- tibble::tibble(y = .x)
+
   # Create a logical variable, operating y and b
   if(b_op == "gte"){
-    .data$value_ref <- ifelse(get(y, .data) >= b, TRUE, FALSE)
+    res$value_ref <- ifelse(res$y >= b, TRUE, FALSE)
   } else if(b_op == "lte"){
-    .data$value_ref <- ifelse(get(y, .data) <= b, TRUE, FALSE)
+    res$value_ref <- ifelse(res$y <= b, TRUE, FALSE)
   } else if(b_op == "gt"){
-    .data$value_ref <- ifelse(get(y, .data) > b, TRUE, FALSE)
+    res$value_ref <- ifelse(res$y > b, TRUE, FALSE)
   } else if(b_op == "lt"){
-    .data$value_ref <- ifelse(get(y, .data) < b, TRUE, FALSE)
+    res$value_ref <- ifelse(res$y < b, TRUE, FALSE)
   } else if(b_op == "e"){
-    .data$value_ref <- ifelse(get(y, .data) == b, TRUE, FALSE)
+    res$value_ref <- ifelse(res$y == b, TRUE, FALSE)
   }
 
   # For isolated true, consider if previous and ahead values are equal to zero
   if(isolated == TRUE){
-    .data$lag <- dplyr::lag(get(y, .data), default = 0)
-    .data$lead <- dplyr::lead(get(y, .data), default = 0)
-    .data$value_ref_2 <- ifelse(.data$lag == 0 & .data$lead == 0, TRUE, FALSE)
-    .data$value_ref <- as.logical(.data$value_ref * .data$value_ref_2)
+    res$lag <- dplyr::lag(res$y, default = 0)
+    res$lead <- dplyr::lead(res$y, default = 0)
+    res$value_ref_2 <- ifelse(res$lag == 0 & res$lead == 0, TRUE, FALSE)
+    res$value_ref <- as.logical(res$value_ref * res$value_ref_2)
   }
 
   # Tidy length encoding
-  res1 <- trle(.data, "value_ref")
+  res1 <- trle(res$value_ref)
 
   # For isolated false, filter positive results, and operate length and a value
   if(isolated == FALSE){
     if(a_op == "gte"){
-      res2 <- dplyr::filter(.data = res1, .data$values == TRUE & .data$lengths >= a)
+      res2 <- subset(res1, res1$value == TRUE & res1$length >= a)
     } else if(a_op == "lte"){
-      res2 <- dplyr::filter(.data = res1, .data$values == TRUE & .data$lengths <= a)
+      res2 <- subset(res1, res1$value == TRUE & res1$length <= a)
     } else if(a_op == "gt"){
-      res2 <- dplyr::filter(.data = res1, .data$values == TRUE & .data$lengths > a)
+      res2 <- subset(res1, res1$value == TRUE & res1$length > a)
     } else if(a_op == "lt"){
-      res2 <- dplyr::filter(.data = res1, .data$values == TRUE & .data$lengths < a)
+      res2 <- subset(res1, res1$value == TRUE & res1$length < a)
     } else if(a_op == "e"){
-      res2 <- dplyr::filter(.data = res1, .data$values == TRUE & .data$lengths == a)
+      res2 <- subset(res1, res1$value == TRUE & res1$length == a)
     }
   } else if(isolated == TRUE){
     # For isolated true, consider only positive results with length of one
@@ -54,64 +75,9 @@ trle_cond <- function(.data, y, a_op, a, b_op, b, isolated){
       stop("Argument `a_op` must be equal to `e`.")
     }
 
-    res2 <- dplyr::filter(.data = res1, .data$values == TRUE & .data$lengths == a)
+    res2 <- subset(res1, res1$value == TRUE & res1$length == a)
   }
 
   # Returns the number of rows that meets the specified criteria
   nrow(res2)
-}
-
-
-
-trle_filter_stat <- function(.data, y, b, b_op, stat){
-  # Check assertions
-  checkmate::assert_class(x = .data, classes = "tbl")
-  checkmate::assert_choice(x = y, choices = names(.data))
-  checkmate::assert_count(x = b)
-  checkmate::assert_choice(x = b_op, choices = c("gte", "lte", "gt", "lt", "e"))
-  checkmate::assert_choice(x = stat, choices = c("max", "min", "mean", "median", "sd", "var"))
-
-  # Create a logical variable, operating y and b
-  if(b_op == "gte"){
-    .data$value_ref <- ifelse(get(y, .data) >= b, TRUE, FALSE)
-  } else if(b_op == "lte"){
-    .data$value_ref <- ifelse(get(y, .data) <= b, TRUE, FALSE)
-  } else if(b_op == "gt"){
-    .data$value_ref <- ifelse(get(y, .data) > b, TRUE, FALSE)
-  } else if(b_op == "lt"){
-    .data$value_ref <- ifelse(get(y, .data) < b, TRUE, FALSE)
-  } else if(b_op == "e"){
-    .data$value_ref <- ifelse(get(y, .data) == b, TRUE, FALSE)
-  }
-
-  # Compute tibble run length encoding considering the reference value, filter positive values, pull lengths and determine maximun value
-  res <- trle(.data, y = "value_ref") %>%
-    dplyr::filter(.data$values == TRUE)
-
-  # Pull lengths vector
-  if(nrow(res >= 1)){
-    res2 <- res %>%
-      dplyr::pull("lengths")
-
-    # Calculate statistics
-    if(stat == "max"){
-      res3 <- res2 %>% max(na.rm = TRUE)
-    } else if(stat == "min"){
-      res3 <- res2 %>% min(na.rm = TRUE)
-    } else if(stat == "mean"){
-      res3 <- res2 %>% mean(na.rm = TRUE)
-    } else if(stat == "median"){
-      res3 <- res2 %>% stats::median(na.rm = TRUE)
-    } else if(stat == "sd"){
-      res3 <- res2 %>% stats::sd(na.rm = TRUE)
-    } else if(stat == "var"){
-      res3 <- res2 %>% stats::var(na.rm = TRUE)
-    }
-
-  } else {
-    res3 <- NA
-  }
-
-  # Return result
-  return(res3)
 }

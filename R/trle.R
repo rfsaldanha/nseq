@@ -2,8 +2,7 @@
 #'
 #' Given a tibble object and a variable \code{y}, this function will count the number of occurrence of each element in \code{y} in the sequence that they appear, and return this count as a tibble object.
 #'
-#' @param .data a \code{tibble} object.
-#' @param y character. A variable available on \code{.data}
+#' @param .x a vector.
 #'
 #' @return a \code{tibble} object.
 #'

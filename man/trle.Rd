@@ -7,9 +7,7 @@
 trle(.x)
 }
 \arguments{
-\item{.data}{a \code{tibble} object.}
-
-\item{y}{character. A variable available on \code{.data}}
+\item{.x}{a vector.}
 }
 \value{
 a \code{tibble} object.
