@@ -1,10 +1,10 @@
 Package: runner
-Title: Tidy Run Length Encoding functions
+Title: Statistics of Events in Sequences
 Version: 0.0.0.9000
 Authors@R: 
      person("Raphael", "Saldanha", , "raphael.de-freitas-saldanha@inria.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-0652-8466"))
-Description: Compute Run Length Encodings in a tidy way with summary functions.
+Description: Compute counts and statistics of occurrence of events in sequences that meets a criterion.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
