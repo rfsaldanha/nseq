@@ -19,7 +19,7 @@
 #' shift(c(2,3,5,6,7), n = -1, default = 0)
 #'
 shift <- function(x, n, invert = FALSE, default = NA){
-  checkmate::assert_vector(x = x)
+  checkmate::assert_numeric(x = x)
 
   stopifnot(length(x)>=n)
 

@@ -7,7 +7,7 @@
 trle_cond(x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE)
 }
 \arguments{
-\item{x}{vector of values.}
+\item{x}{numeric vector.}
 
 \item{a_op, b_op}{character. Operator, \code{gte} = greater than or equal, \code{lte} = less than or equal, \code{gt} = greater than, \code{lt} = less than, \code{e} = equal.}
 

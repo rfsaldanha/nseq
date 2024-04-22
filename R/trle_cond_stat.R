@@ -4,8 +4,8 @@
 #'
 #' Example: in a vector, what is the maximum size of sequences with values equal or greater than 5?
 #'
-#' @param x vector of values.
-#' @param b b integer. Value threshold.
+#' @param x numeric vector.
+#' @param b integer. Value threshold.
 #' @param b_op character. Operator, \code{gte} = greater than or equal, \code{lte} = less than or equal, \code{gt} = greater than, \code{lt} = less than, \code{e} = equal.
 #' @param stat character. A statistic to be calculated. One of: max, min, mean, median, sd, var.
 #'
@@ -18,7 +18,7 @@
 #'
 trle_cond_stat <- function(x, b, b_op, stat){
   # Check assertions
-  checkmate::assert_vector(x = x)
+  checkmate::assert_numeric(x = x)
   checkmate::assert_numeric(x = b)
   checkmate::assert_choice(x = b_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_choice(x = stat, choices = c("max", "min", "mean", "median", "sd", "var"))

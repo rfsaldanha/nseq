@@ -4,7 +4,7 @@
 #'
 #' Example: In a vector, how many sequences have at least 3 consecutive observations (\code{a_op = "gte", a = 3}) with values equal or greater than 5 (\code{b_op = "gte", b = 5})?
 #'
-#' @param x vector of values.
+#' @param x numeric vector.
 #' @param a_op,b_op character. Operator, \code{gte} = greater than or equal, \code{lte} = less than or equal, \code{gt} = greater than, \code{lt} = less than, \code{e} = equal.
 #' @param a integer. Length of period threshold.
 #' @param b integer. Value threshold.
@@ -19,7 +19,7 @@
 #'
 trle_cond <- function(x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE){
   # Check assertions
-  checkmate::assert_vector(x = x)
+  checkmate::assert_numeric(x = x)
   checkmate::assert_choice(x = a_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_choice(x = b_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_count(x = a)

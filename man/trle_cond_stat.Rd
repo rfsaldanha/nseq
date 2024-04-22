@@ -7,9 +7,9 @@
 trle_cond_stat(x, b, b_op, stat)
 }
 \arguments{
-\item{x}{vector of values.}
+\item{x}{numeric vector.}
 
-\item{b}{b integer. Value threshold.}
+\item{b}{integer. Value threshold.}
 
 \item{b_op}{character. Operator, \code{gte} = greater than or equal, \code{lte} = less than or equal, \code{gt} = greater than, \code{lt} = less than, \code{e} = equal.}
 
