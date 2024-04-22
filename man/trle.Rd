@@ -2,7 +2,7 @@
 % Please edit documentation in R/trle.R
 \name{trle}
 \alias{trle}
-\title{Run Length Encoding and return result as a tibble}
+\title{Run Length Encoding and return result as a data frame}
 \usage{
 trle(.x)
 }
@@ -10,7 +10,7 @@ trle(.x)
 \item{.x}{a vector.}
 }
 \value{
-a \code{tibble} object.
+a \code{data.frame} object.
 }
 \description{
 Given a tibble object and a variable \code{y}, this function will count the number of occurrence of each element in \code{y} in the sequence that they appear, and return this count as a tibble object.

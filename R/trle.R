@@ -1,10 +1,10 @@
-#' Run Length Encoding and return result as a tibble
+#' Run Length Encoding and return result as a data frame
 #'
 #' Given a tibble object and a variable \code{y}, this function will count the number of occurrence of each element in \code{y} in the sequence that they appear, and return this count as a tibble object.
 #'
 #' @param .x a vector.
 #'
-#' @return a \code{tibble} object.
+#' @return a \code{data.frame} object.
 #'
 #' @seealso [rle()]
 #'
