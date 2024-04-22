@@ -4,10 +4,10 @@
 \alias{trle_cond_stat}
 \title{Statistics of events in a sequence}
 \usage{
-trle_cond_stat(.x, b, b_op, stat)
+trle_cond_stat(x, b, b_op, stat)
 }
 \arguments{
-\item{.x}{vector of values.}
+\item{x}{vector of values.}
 
 \item{b}{b integer. Value threshold.}
 

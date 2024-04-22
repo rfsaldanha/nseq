@@ -4,10 +4,10 @@
 \alias{trle_cond}
 \title{Count the number of events in a sequence}
 \usage{
-trle_cond(.x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE)
+trle_cond(x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE)
 }
 \arguments{
-\item{.x}{vector of values.}
+\item{x}{vector of values.}
 
 \item{a_op, b_op}{character. Operator, \code{gte} = greater than or equal, \code{lte} = less than or equal, \code{gt} = greater than, \code{lt} = less than, \code{e} = equal.}
 
@@ -28,6 +28,6 @@ Example: In a vector, how many sequences have at least 3 consecutive observation
 }
 \examples{
 # How many sequences have at least 3 consecutive observations with value equal or greater than 5?
-trle_cond(.x = c(8,15,20,0,0,0,0,5,9,12), a_op = "gte", a = 3, b_op = "gte", b = 5)
+trle_cond(x = c(8,15,20,0,0,0,0,5,9,12), a_op = "gte", a = 3, b_op = "gte", b = 5)
 
 }

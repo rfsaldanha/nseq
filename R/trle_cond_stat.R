@@ -4,7 +4,7 @@
 #'
 #' Example: in a vector, what is the maximum size of sequences with values equal or greater than 5?
 #'
-#' @param .x vector of values.
+#' @param x vector of values.
 #' @param b b integer. Value threshold.
 #' @param b_op character. Operator, \code{gte} = greater than or equal, \code{lte} = less than or equal, \code{gt} = greater than, \code{lt} = less than, \code{e} = equal.
 #' @param stat character. A statistic to be calculated. One of: max, min, mean, median, sd, var.
@@ -16,15 +16,15 @@
 #' # What is the maximum size of sequences with values equal or greater than 5?
 #' trle_cond_stat(c(4,6,6,4,7,8,9), b = 5, b_op = "gte", stat = "max")
 #'
-trle_cond_stat <- function(.x, b, b_op, stat){
+trle_cond_stat <- function(x, b, b_op, stat){
   # Check assertions
-  checkmate::assert_vector(x = .x)
+  checkmate::assert_vector(x = x)
   checkmate::assert_numeric(x = b)
   checkmate::assert_choice(x = b_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_choice(x = stat, choices = c("max", "min", "mean", "median", "sd", "var"))
 
   # Vector to tibble
-  res <- data.frame(y = .x)
+  res <- data.frame(y = x)
 
   # Create a logical variable, operating y and b
   if(b_op == "gte"){

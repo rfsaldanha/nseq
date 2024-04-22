@@ -18,12 +18,17 @@
 #' # Lead
 #' shift(c(2,3,5,6,7), n = -1, default = 0)
 #'
-shift <- function(x, n, invert=FALSE, default=NA){
+shift <- function(x, n, invert = FALSE, default = NA){
+  checkmate::assert_vector(x = x)
+
   stopifnot(length(x)>=n)
+
   if(n==0){
     return(x)
   }
+
   n <- ifelse(invert, n*(-1), n)
+
   if(n<0){
     n <- abs(n)
     forward=FALSE
