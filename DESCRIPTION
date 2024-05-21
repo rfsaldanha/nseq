@@ -1,10 +1,10 @@
 Package: nseq
-Title: Number of Sequential Events
+Title: Count of Sequential Events
 Version: 0.0.1
 Authors@R: 
      person("Raphael", "Saldanha", , "raphael.de-freitas-saldanha@inria.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-0652-8466"))
-Description: Compute the number of sequences of values in a vector that meets conditions of length and magnitude.
+Description: Count the occorrence of sequences of values in a vector that meets certain conditions of length and magnitude.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
