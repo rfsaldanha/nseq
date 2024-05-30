@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R: 
      person("Raphael", "Saldanha", , "raphael.de-freitas-saldanha@inria.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-0652-8466"))
-Description: Count the occorrence of sequences of values in a vector that meets certain conditions of length and magnitude.
+Description: Count the occurrence of sequences of values in a vector that meets certain conditions of length and magnitude. The method is based on the Run Length Encoding algorithm, available with base R, inspired by A. H. Robinson and C. Cherry (1967) <doi:10.1109/PROC.1967.5493>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
