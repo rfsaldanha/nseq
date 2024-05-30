@@ -1,3 +1,6 @@
+# nseq 0.1.1
+* Update package description for CRAN submission.
+
 # nseq 0.1.0
 * Update package description for CRAN submission.
 
