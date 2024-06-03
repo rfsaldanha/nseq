@@ -23,11 +23,18 @@ Compute the number of sequences of values in a vector that meets conditions of l
 
 ## Installation
 
-You can install the development version of nseq from [GitHub](https://github.com/) with:
+You can install the stable release from CRAN.
+
+``` r
+install.packages("nseq")
+library(nseq)
+```
+Or install the development version of from GitHub:
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("rfsaldanha/nseq")
+library(nseq)
 ```
 
 ## Example
