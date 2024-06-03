@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/rfsaldanha/nseq/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rfsaldanha/nseq/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/nseq)](https://CRAN.R-project.org/package=nseq)
 <!-- badges: end -->
 
 Compute the number of sequences of values in a vector that meets
@@ -13,12 +15,19 @@ conditions of length and magnitude.
 
 ## Installation
 
-You can install the development version of nseq from
-[GitHub](https://github.com/) with:
+You can install the stable release from CRAN.
+
+``` r
+install.packages("nseq")
+library(nseq)
+```
+
+Or install the development version of from GitHub:
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("rfsaldanha/nseq")
+library(nseq)
 ```
 
 ## Example
