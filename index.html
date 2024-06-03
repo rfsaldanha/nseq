@@ -81,16 +81,21 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of nseq from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the stable release from CRAN.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"nseq"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rfsaldanha.github.io/nseq/">nseq</a></span><span class="op">)</span></span></code></pre></div>
+<p>Or install the development version of from GitHub:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rfsaldanha/nseq"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rfsaldanha/nseq"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rfsaldanha.github.io/nseq/">nseq</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>On this vector, how many sequences of values present at least 3 consecutive observations with values equal or greater than 5?</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rfsaldanha.github.io/nseq/">nseq</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">15</span>,<span class="fl">20</span>,<span class="fl">8</span>,<span class="fl">1</span>,<span class="fl">7</span>,<span class="fl">8</span>,<span class="fl">0</span>,<span class="op">-</span><span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">9</span>,<span class="fl">12</span>,<span class="fl">0</span>,<span class="op">-</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span></span>
@@ -98,7 +103,7 @@
 <span><span class="fu"><a href="reference/trle_cond.html">trle_cond</a></span><span class="op">(</span><span class="va">vec</span>, a_op <span class="op">=</span> <span class="st">"gte"</span>, a <span class="op">=</span> <span class="fl">3</span>, b_op <span class="op">=</span> <span class="st">"gte"</span>, b <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2</span></span></code></pre></div>
 <p>And how many sequences of values have exactly 3 consecutive observations with values equal or greater than 5?</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/trle_cond.html">trle_cond</a></span><span class="op">(</span><span class="va">vec</span>, a_op <span class="op">=</span> <span class="st">"e"</span>, a <span class="op">=</span> <span class="fl">3</span>, b_op <span class="op">=</span> <span class="st">"gte"</span>, b <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 </div>
@@ -106,6 +111,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=nseq" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/rfsaldanha/nseq/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/rfsaldanha/nseq/issues" class="external-link">Report a bug</a></li>
 </ul>
@@ -138,6 +144,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/rfsaldanha/nseq/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/rfsaldanha/nseq/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=nseq" class="external-link"><img src="https://www.r-pkg.org/badges/version/nseq" alt="CRAN status"></a></li>
 </ul>
 </div>
 
