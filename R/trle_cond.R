@@ -65,9 +65,11 @@ trle_cond <- function(
   res1 <- trle(res$value_ref)
 
   # Compute positions
-  res1$p2 <- cumsum(res1$length) # End
-  res1$p1 <- res1$p2 - res1$length + 1 # Start
-  res1 <- res1[, c(1, 2, 4, 3)] # Reorder columns
+  if (pos) {
+    res1$p2 <- cumsum(res1$length) # End
+    res1$p1 <- res1$p2 - res1$length + 1 # Start
+    res1 <- res1[, c(1, 2, 4, 3)] # Reorder columns
+  }
 
   # For isolated false, filter positive results, and operate length and a value
   if (isolated == FALSE) {
