@@ -4,7 +4,7 @@
 \alias{trle_cond}
 \title{Count the number of events in a sequence}
 \usage{
-trle_cond(x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE)
+trle_cond(x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE, pos = FALSE)
 }
 \arguments{
 \item{x}{numeric vector.}
@@ -16,9 +16,11 @@ trle_cond(x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE)
 \item{b}{integer. Value threshold.}
 
 \item{isolated}{logical. Consider only isolated events, i.e. surrounded by zeros. On this case, \code{a} and \code{a_op} are not considered.}
+
+\item{pos}{logical. Return start and end position of each event, instead of counts.}
 }
 \value{
-a numeric value.
+a integer count value, or a data.frame if \code{pos} is \code{TRUE}.
 }
 \description{
 This function will count the occurrence of sequential events that meets some conditions.
