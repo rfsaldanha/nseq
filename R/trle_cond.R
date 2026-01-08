@@ -9,41 +9,53 @@
 #' @param a integer. Length of period threshold.
 #' @param b integer. Value threshold.
 #' @param isolated logical. Consider only isolated events, i.e. surrounded by zeros. On this case, \code{a} and \code{a_op} are not considered.
+#' @param pos logical. Return start and end position of each event, instead of counts.
 #'
-#' @return a numeric value.
+#' @return a integer count value, or a data.frame if `pos` is `TRUE`.
 #' @export
 #'
 #' @examples
 #' # How many sequences have at least 3 consecutive observations with value equal or greater than 5?
 #' trle_cond(x = c(8,15,20,0,0,0,0,5,9,12), a_op = "gte", a = 3, b_op = "gte", b = 5)
 #'
-trle_cond <- function(x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE){
+trle_cond <- function(
+  x,
+  a_op = "gte",
+  a,
+  b_op = "gte",
+  b,
+  isolated = FALSE,
+  pos = FALSE
+) {
   # Check assertions
   checkmate::assert_numeric(x = x)
   checkmate::assert_choice(x = a_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_choice(x = b_op, choices = c("gte", "lte", "gt", "lt", "e"))
   checkmate::assert_count(x = a)
   checkmate::assert_numeric(x = b)
+  checkmate::assert_logical(x = pos)
 
   # Vector to tibble
   res <- data.frame(y = x)
 
   # Create a logical variable, operating y and b
-  if(b_op == "gte"){
+  if (b_op == "gte") {
     res$value_ref <- ifelse(res$y >= b, TRUE, FALSE)
-  } else if(b_op == "lte"){
+  } else if (b_op == "lte") {
     res$value_ref <- ifelse(res$y <= b, TRUE, FALSE)
-  } else if(b_op == "gt"){
+  } else if (b_op == "gt") {
     res$value_ref <- ifelse(res$y > b, TRUE, FALSE)
-  } else if(b_op == "lt"){
+  } else if (b_op == "lt") {
     res$value_ref <- ifelse(res$y < b, TRUE, FALSE)
-  } else if(b_op == "e"){
+  } else if (b_op == "e") {
     res$value_ref <- ifelse(res$y == b, TRUE, FALSE)
   }
 
   # For isolated true, consider if previous and ahead values are equal to zero
-  if(isolated == TRUE){
+  if (isolated == TRUE) {
+    #res$lag <- dplyr::lag(res$y, default = 0)
     res$lag <- shift(res$y, n = 1, default = 0)
+    #res$lead <- dplyr::lead(res$y, default = 0)
     res$lead <- shift(res$y, n = -1, default = 0)
     res$value_ref_2 <- ifelse(res$lag == 0 & res$lead == 0, TRUE, FALSE)
     res$value_ref <- as.logical(res$value_ref * res$value_ref_2)
@@ -52,32 +64,45 @@ trle_cond <- function(x, a_op = "gte", a, b_op = "gte", b, isolated = FALSE){
   # Tidy length encoding
   res1 <- trle(res$value_ref)
 
+  # Compute positions
+  if (pos) {
+    res1$p2 <- cumsum(res1$length) # End
+    res1$p1 <- res1$p2 - res1$length + 1 # Start
+    res1 <- res1[, c(1, 2, 4, 3)] # Reorder columns
+  }
+
   # For isolated false, filter positive results, and operate length and a value
-  if(isolated == FALSE){
-    if(a_op == "gte"){
+  if (isolated == FALSE) {
+    if (a_op == "gte") {
       res2 <- subset(res1, res1$value == TRUE & res1$length >= a)
-    } else if(a_op == "lte"){
+    } else if (a_op == "lte") {
       res2 <- subset(res1, res1$value == TRUE & res1$length <= a)
-    } else if(a_op == "gt"){
+    } else if (a_op == "gt") {
       res2 <- subset(res1, res1$value == TRUE & res1$length > a)
-    } else if(a_op == "lt"){
+    } else if (a_op == "lt") {
       res2 <- subset(res1, res1$value == TRUE & res1$length < a)
-    } else if(a_op == "e"){
+    } else if (a_op == "e") {
       res2 <- subset(res1, res1$value == TRUE & res1$length == a)
     }
-  } else if(isolated == TRUE){
+  } else if (isolated == TRUE) {
     # For isolated true, consider only positive results with length of one
-    if(a != 1L){
+    if (a != 1L) {
       stop("Argument `a` must be equal to 1.")
     }
 
-    if(a_op != "e"){
+    if (a_op != "e") {
       stop("Argument `a_op` must be equal to `e`.")
     }
 
     res2 <- subset(res1, res1$value == TRUE & res1$length == a)
   }
 
-  # Returns the number of rows that meets the specified criteria
-  nrow(res2)
+  # Return
+  if (pos) {
+    # Positions of efents
+    res2[, c(3, 4)]
+  } else {
+    # Number of rows that meets the specified criteria (count of events)
+    nrow(res2)
+  }
 }
