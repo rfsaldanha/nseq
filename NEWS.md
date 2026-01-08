@@ -1,3 +1,6 @@
+# nseq 0.1.2
+* Add `pos` argument to `trle_cond()` function, allowing to present the position as result.
+
 # nseq 0.1.1
 * Update package description for CRAN submission.
 
